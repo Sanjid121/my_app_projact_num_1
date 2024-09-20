@@ -1,63 +1,27 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_my_app/Register.dart';
-import 'package:flutter_my_app/org.dart';
+import 'package:flutter_my_app/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class Register extends StatefulWidget {
+  const Register({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  userLogin() async {
+class _RegisterState extends State<Register> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController passController = TextEditingController();
+  userRegister() async {
     SharedPreferences sb = await SharedPreferences.getInstance();
-    if (usernameController.text == "" || passwordController.text == "") {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: Colors.red,
-          content: Text('Please enter username and password'),
-        ),
-      );
+    if (nameController.text == "" || passController.text == "") {
+      print("Please enter username and password");
     } else {
-      if (sb.getString('name') != null || sb.getString('pass') != null) {
-        String name = sb.getString('name')!;
-        String pass = sb.getString('pass')!;
-        if (name == usernameController.text ||
-            pass == passwordController.text) {
-          sb.setString('login', 'true');
-          Navigator.of(context)
-              .pushReplacement(MaterialPageRoute(builder: (_) => LoginPage()));
-        } else {
-          print("wrong username or password");
-        }
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: const Color.fromARGB(255, 4, 205, 45),
-          content: Text('Please register first'),
-        ));
-      }
+      sb.setString("name", nameController.text);
+      sb.setString("pass", passController.text);
+      Navigator.of(context)
+          .push((MaterialPageRoute(builder: (context) => LoginPage())));
     }
-  }
-
-  @override
-  void initState() {
-    Future.delayed(Duration(milliseconds: 0), () async {
-      SharedPreferences sb = await SharedPreferences.getInstance();
-      if (sb.getString('login') != null) {
-        if (sb.getString('login') == 'true') {
-          Navigator.of(context)
-              .pushReplacement(MaterialPageRoute(builder: (_) => Org()));
-        }
-      }
-    });
-
-    super.initState();
   }
 
   @override
@@ -80,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Container(
                         child: Text(
-                          'Login',
+                          'Register',
                           style: TextStyle(
                               fontSize: 40, fontWeight: FontWeight.bold),
                         ),
@@ -88,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                       Container(
                         padding: EdgeInsets.all(10),
                         child: TextField(
-                          controller: usernameController,
+                          controller: nameController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -100,35 +64,13 @@ class _LoginPageState extends State<LoginPage> {
                       Container(
                         padding: EdgeInsets.all(10),
                         child: TextField(
-                          controller: passwordController,
+                          controller: passController,
                           obscureText: true,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                             labelText: 'Password',
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 60,
-                        width: double.maxFinite,
-                        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            elevation: 2,
-                            backgroundColor: Color.fromARGB(255, 89, 189, 243),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          onPressed: () {
-                            userLogin();
-                          },
-                          child: Text(
-                            'Login',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -148,12 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Register(),
-                              ),
-                            );
+                            userRegister();
                           },
                           child: Text(
                             'Register',

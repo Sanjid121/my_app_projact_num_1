@@ -15,6 +15,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+ //login validation
   userLogin() async {
     SharedPreferences sb = await SharedPreferences.getInstance();
     if (usernameController.text == "" || passwordController.text == "") {

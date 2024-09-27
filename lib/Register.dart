@@ -12,26 +12,20 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passController = TextEditingController();
-  userRegister() async {
-    SharedPreferences sb = await SharedPreferences.getInstance();
-    if (nameController.text == "" || passController.text == "") {
-      print("Please enter username and password");
-    } else {
-      sb.setString("name", nameController.text);
-      sb.setString("pass", passController.text);
-      Navigator.of(context)
-          .push((MaterialPageRoute(builder: (context) => LoginPage())));
-    }
-  }
 
+  @override
+registear() async {
+
+  SharedPreferences pr = await SharedPreferences.getInstance();
+  pr.setString('username', nameController.text);
+  pr.setString('password', passController.text);
+
+  Navigator.push( context, MaterialPageRoute(builder: (context) => LoginPage()));
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-     
-      body: 
-      Container(
-        
+      body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topRight,
@@ -41,13 +35,11 @@ class _RegisterState extends State<Register> {
               Colors.pinkAccent,
             ],
           ),
-        
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -59,20 +51,20 @@ class _RegisterState extends State<Register> {
                   child: SingleChildScrollView(
                     child: Container(
                       decoration: BoxDecoration(
-                          gradient: LinearGradient( colors: [
-                              Colors.pinkAccent,
-                            Colors.deepPurpleAccent,
-                          
-                          ]
-                          )),
+                          gradient: LinearGradient(colors: [
+                        Colors.pinkAccent,
+                        Colors.deepPurpleAccent,
+                      ])),
                       child: Column(
                         children: [
                           SizedBox(height: 15),
                           Container(
                             child: Text(
-                              'Register' ,
+                              'Register',
                               style: TextStyle(
-                                  fontSize: 40, fontWeight: FontWeight.bold , color: Colors.white),
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
                           ),
                           SizedBox(height: 15),
@@ -84,7 +76,10 @@ class _RegisterState extends State<Register> {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                labelText: '  Email' , suffixText: '@gmail.com' ,suffixStyle: TextStyle(color: Colors.white) ,labelStyle: TextStyle(color: Colors.white),
+                                labelText: '  Email',
+                                suffixText: '@gmail.com',
+                                suffixStyle: TextStyle(color: Colors.white),
+                                labelStyle: TextStyle(color: Colors.white),
                               ),
                             ),
                           ),
@@ -97,7 +92,12 @@ class _RegisterState extends State<Register> {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                labelText: 'Password' ,labelStyle: TextStyle(color: Colors.white), suffixIcon: Icon(Icons.remove_red_eye , color: Colors.white,),
+                                labelText: 'Password',
+                                labelStyle: TextStyle(color: Colors.white),
+                                suffixIcon: Icon(
+                                  Icons.remove_red_eye,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
@@ -111,10 +111,9 @@ class _RegisterState extends State<Register> {
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 elevation: 2,
-                               backgroundColor:  Colors.white,
+                                backgroundColor: Colors.white,
                                 shape: RoundedRectangleBorder(
                                   side: BorderSide(
-                                    
                                     style: BorderStyle.solid,
                                     width: 4,
                                     color: const Color.fromARGB(255, 0, 0, 0),
@@ -123,12 +122,15 @@ class _RegisterState extends State<Register> {
                                 ),
                               ),
                               onPressed: () {
-                                userRegister();
+                                registear();
+                               
                               },
                               child: Text(
-                                'Submit', 
+                                'Submit',
                                 style: TextStyle(
-                                    fontSize: 25, fontWeight: FontWeight.bold , color: Colors.black),
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
                               ),
                             ),
                           ),

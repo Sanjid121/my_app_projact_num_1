@@ -11,28 +11,48 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  //login validation
+  final _fromkey = GlobalKey<FormState>();
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+  String? _validation(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your email';
+    }
+    final emailPattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+    if (!RegExp(emailPattern).hasMatch(value)) {
+      return 'Please enter a valid email';
+    }
+    return null;
+  }
+
+  String? _passvalidation(String? value) {
+    if (value == null || value.isEmpty) {
+      return "please entet your password";
+    }
+    if (value.length < 6) {
+      return 'Password must be at least 6 characters long';
+    }
+    return null;
+  }
+
   usarLogin() async {
     SharedPreferences ss = await SharedPreferences.getInstance();
-    if (usernameController.text == "" || passwordController.text == "") {
-      print("empty");
+    if (_usernameController.text == "" || _passwordController.text == "") {
+      _fromkey.currentState!.validate();
     } else {
-      String email = ss.getString('username')!;
-      String password = ss.getString('password')!;
+      if (ss.getString('email') != null) {
+        // print('sanjid');
+        String email = ss.getString('email')!;
+        String password = ss.getString('password')!;
 
-      if (email == usernameController.text &&
-          password == passwordController.text) {
-        ss.setString('login', 'true');
-        Navigator.push(context, MaterialPageRoute(builder: (_) => Org()));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.red,
-            content: Text('Please Enter Correct Email and Password'),
-          ),
-        );
+        if (email == _usernameController.text &&
+            password == _passwordController.text) {
+          ss.setString('login', "true");
+          Navigator.push(context, MaterialPageRoute(builder: (_) => Org()));
+        } else {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('incarect pasword ')));
+        }
       }
     }
   }
@@ -96,47 +116,43 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           Container(
                             padding: EdgeInsets.all(10),
-                            child: TextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                              autofocus: true,
-                              keyboardType: TextInputType.emailAddress,
-                              controller: usernameController,
-                              decoration: InputDecoration(
-                                icon: Icon(Icons.person),
-                                iconColor: Colors.red,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                labelText: 'Email ',
-                                labelStyle: TextStyle(color: Colors.white),
-                                suffixText: '@gmail.com',
-                                suffixStyle: TextStyle(color: Colors.white),
-                              ),
-                            ),
+                            child: Form(
+                                key: _fromkey,
+                                child: Column(
+                                  children: [
+                                    TextFormField(
+                                      controller: _usernameController,
+                                      decoration: InputDecoration(
+                                          icon: Icon(Icons.man_3_rounded,
+                                              size: 25, color: Colors.red),
+                                          labelText: 'Email ',
+                                          labelStyle:
+                                              TextStyle(color: Colors.white),
+                                          suffixText: '@gmail.com',
+                                          suffixStyle:
+                                              TextStyle(color: Colors.white),
+                                          border: OutlineInputBorder()),
+                                      validator: _validation,
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    TextFormField(
+                                      controller: _passwordController,
+                                      decoration: InputDecoration(
+                                          icon: Icon(Icons.lock,
+                                              size: 25, color: Colors.red),
+                                          labelText: 'Pasword',
+                                          labelStyle:
+                                              TextStyle(color: Colors.white),
+                                          border: OutlineInputBorder()),
+                                      validator: _passvalidation,
+                                    ),
+                                  ],
+                                )),
                           ),
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            child: TextField(
-                              controller: passwordController,
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                  icon: Icon(Icons.lock),
-                                  iconColor: Colors.red,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  labelText: 'Password',
-                                  labelStyle: TextStyle(color: Colors.white),
-                                  suffixIcon: IconButton(
-                                      color: Colors.white,
-                                      icon: Icon(Icons.remove_red_eye),
-                                      onPressed: () {})),
-                            ),
+                          SizedBox(
+                            height: 10,
                           ),
                           Container(
                             height: 60,

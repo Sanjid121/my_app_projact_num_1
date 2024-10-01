@@ -19,7 +19,8 @@ class _TextFildState extends State<TextFild> {
     }
     // Simple email pattern
     final emailPattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
-    if (!RegExp(emailPattern).hasMatch(value)) {
+  
+    if (!RegExp(emailPattern).hasMatch(value)) {  
       return 'Please enter a valid email';
     }
     return null;
@@ -37,10 +38,10 @@ class _TextFildState extends State<TextFild> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      // If form is valid, proceed with login logic
+      
       String email = _emailController.text;
       String password = _passwordController.text;
-      // Handle login logic here (e.g., call an API)
+      
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Logging in as $email')),
       );
@@ -89,6 +90,12 @@ class _TextFildState extends State<TextFild> {
               ),
               SizedBox(height: 20.0),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
                 onPressed: _submitForm, // Submit the form when pressed
                 child: Text('Login'),
               ),

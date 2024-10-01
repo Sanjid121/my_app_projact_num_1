@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_my_app/manu.dart';
+import 'package:flutter_my_app/text_fild.dart';
 
 class Org extends StatefulWidget {
   const Org({Key? key}) : super(key: key);
@@ -44,17 +45,15 @@ class _OrgState extends State<Org> {
                 ),
                 items: [
                   Image.network(
-                    'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=400',
-                    fit: BoxFit.cover,
-                  ),
-                  Image.network(
-                      'https://images.pexels.com/photos/851555/pexels-photo-851555.jpeg?auto=compress&cs=tinysrgb&w=400'),
-                  Image.network(
-                      'https://images.pexels.com/photos/414630/pexels-photo-414630.jpeg?auto=compress&cs=tinysrgb&w=400'),
-                  Image.network(
-                      'https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=400'),
-                  Image.network(
-                      'https://images.pexels.com/photos/1749303/pexels-photo-1749303.jpeg?auto=compress&cs=tinysrgb&w=400'),
+                        'https://images.pexels.com/photos/2131614/pexels-photo-2131614.jpeg?auto=compress&cs=tinysrgb&w=400'),
+                    Image.network(
+                        'https://images.pexels.com/photos/2131614/pexels-photo-2131614.jpeg?auto=compress&cs=tinysrgb&w=400'),
+                    Image.network(
+                        'https://images.pexels.com/photos/2131614/pexels-photo-2131614.jpeg?auto=compress&cs=tinysrgb&w=400'),
+                    Image.network(
+                        'https://images.pexels.com/photos/2131614/pexels-photo-2131614.jpeg?auto=compress&cs=tinysrgb&w=400'),
+                    Image.network(
+                        'https://images.pexels.com/photos/2131614/pexels-photo-2131614.jpeg?auto=compress&cs=tinysrgb&w=400'),
                 ],
               ),
             ),
@@ -68,15 +67,15 @@ class _OrgState extends State<Org> {
                   options: CarouselOptions(height: 200.0, autoPlay: true),
                   items: [
                     Image.network(
-                        'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=400'),
+                        'https://images.pexels.com/photos/2131614/pexels-photo-2131614.jpeg?auto=compress&cs=tinysrgb&w=400'),
                     Image.network(
-                        'https://images.pexels.com/photos/851555/pexels-photo-851555.jpeg?auto=compress&cs=tinysrgb&w=400'),
+                        'https://images.pexels.com/photos/2131614/pexels-photo-2131614.jpeg?auto=compress&cs=tinysrgb&w=400'),
                     Image.network(
-                        'https://images.pexels.com/photos/414630/pexels-photo-414630.jpeg?auto=compress&cs=tinysrgb&w=400'),
+                        'https://images.pexels.com/photos/2131614/pexels-photo-2131614.jpeg?auto=compress&cs=tinysrgb&w=400'),
                     Image.network(
-                        'https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=400'),
+                        'https://images.pexels.com/photos/2131614/pexels-photo-2131614.jpeg?auto=compress&cs=tinysrgb&w=400'),
                     Image.network(
-                        'https://images.pexels.com/photos/1749303/pexels-photo-1749303.jpeg?auto=compress&cs=tinysrgb&w=400'),
+                        'https://images.pexels.com/photos/2131614/pexels-photo-2131614.jpeg?auto=compress&cs=tinysrgb&w=400'),
                   ],
                 ),
               ),
@@ -90,16 +89,16 @@ class _OrgState extends State<Org> {
                 child: CarouselSlider(
                   options: CarouselOptions(height: 200.0, autoPlay: true),
                   items: [
+                   Image.network(
+                        'https://images.pexels.com/photos/2131614/pexels-photo-2131614.jpeg?auto=compress&cs=tinysrgb&w=400'),
                     Image.network(
-                        'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=400'),
+                        'https://images.pexels.com/photos/2131614/pexels-photo-2131614.jpeg?auto=compress&cs=tinysrgb&w=400'),
                     Image.network(
-                        'https://images.pexels.com/photos/851555/pexels-photo-851555.jpeg?auto=compress&cs=tinysrgb&w=400'),
+                        'https://images.pexels.com/photos/2131614/pexels-photo-2131614.jpeg?auto=compress&cs=tinysrgb&w=400'),
                     Image.network(
-                        'https://images.pexels.com/photos/414630/pexels-photo-414630.jpeg?auto=compress&cs=tinysrgb&w=400'),
+                        'https://images.pexels.com/photos/2131614/pexels-photo-2131614.jpeg?auto=compress&cs=tinysrgb&w=400'),
                     Image.network(
-                        'https://images.pexels.com/photos/585753/pexels-photo-585753.jpeg?auto=compress&cs=tinysrgb&w=400'),
-                    Image.network(
-                        'https://images.pexels.com/photos/1749303/pexels-photo-1749303.jpeg?auto=compress&cs=tinysrgb&w=400'),
+                        'https://images.pexels.com/photos/2131614/pexels-photo-2131614.jpeg?auto=compress&cs=tinysrgb&w=400'),
                   ],
                 ),
               ),
@@ -108,7 +107,29 @@ class _OrgState extends State<Org> {
           ],
         ),
       ),
-     
+      bottomNavigationBar: BottomAppBar(
+        height: 60,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.person),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => TextFild()));
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () {},
+            ),
+          ],
+        ),
+        
+      ),
     );
   }
 }

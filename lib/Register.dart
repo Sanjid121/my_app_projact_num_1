@@ -10,18 +10,44 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController passController = TextEditingController();
+  final _fromkey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _passController = TextEditingController();
 
   @override
-registear() async {
+  String? _validatio(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your email';
+    }
+    final emailPattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+    if (!RegExp(emailPattern).hasMatch(value)) {
+      return 'Please enter a valid email';
+    }
+    return null;
+  }
 
-  SharedPreferences pr = await SharedPreferences.getInstance();
-  pr.setString('username', nameController.text);
-  pr.setString('password', passController.text);
+  String? _passvalidatio(String? value) {
+    if (value == null || value.isEmpty) {
+      return "please entet your password";
+    }
+    if (value.length < 6) {
+      return 'Password must be at least 6 characters long';
+    }
+    return null;
+  }
 
-  Navigator.push( context, MaterialPageRoute(builder: (context) => LoginPage()));
-}
+  registear() async {
+    SharedPreferences ss = await SharedPreferences.getInstance();
+    if (_nameController.text == "" || _passController.text == "") {
+      _fromkey.currentState!.validate();
+    } else {
+      ss.setString('email', _nameController.text);
+      ss.setString('password', _passController.text);
+ Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginPage()));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,49 +83,52 @@ registear() async {
                       ])),
                       child: Column(
                         children: [
-                          SizedBox(height: 15),
+                          SizedBox(height: 20),
                           Container(
                             child: Text(
-                              'Register',
+                              'Registar',
                               style: TextStyle(
                                   fontSize: 40,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
                             ),
                           ),
-                          SizedBox(height: 15),
                           Container(
                             padding: EdgeInsets.all(10),
-                            child: TextField(
-                              controller: nameController,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                labelText: '  Email',
-                                suffixText: '@gmail.com',
-                                suffixStyle: TextStyle(color: Colors.white),
-                                labelStyle: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            child: TextField(
-                              controller: passController,
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                labelText: 'Password',
-                                labelStyle: TextStyle(color: Colors.white),
-                                suffixIcon: Icon(
-                                  Icons.remove_red_eye,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
+                            child: Form(
+                                key: _fromkey,
+                                child: Column(
+                                  children: [
+                                    TextFormField(
+                                      controller: _nameController,
+                                      decoration: InputDecoration(
+                                          icon: Icon(Icons.man_3_rounded,
+                                              size: 25, color: Colors.red),
+                                          labelText: 'Email ',
+                                          labelStyle:
+                                              TextStyle(color: Colors.white),
+                                          suffixText: '@gmail.com',
+                                          suffixStyle:
+                                              TextStyle(color: Colors.white),
+                                          border: OutlineInputBorder()),
+                                      validator: _validatio,
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    TextFormField(
+                                      controller: _passController,
+                                      decoration: InputDecoration(
+                                          icon: Icon(Icons.lock,
+                                              size: 25, color: Colors.red),
+                                          labelText: 'Pasword',
+                                          labelStyle:
+                                              TextStyle(color: Colors.white),
+                                          border: OutlineInputBorder()),
+                                      validator: _passvalidatio,
+                                    ),
+                                  ],
+                                )),
                           ),
                           SizedBox(
                             height: 10,
@@ -123,7 +152,6 @@ registear() async {
                               ),
                               onPressed: () {
                                 registear();
-                               
                               },
                               child: Text(
                                 'Submit',

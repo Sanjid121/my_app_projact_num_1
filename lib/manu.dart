@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_my_app/login_page.dart';
+import 'package:flutter_my_app/stap_.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Manu extends StatefulWidget {
@@ -39,8 +40,11 @@ class _ManuState extends State<Manu> {
           onTap: () {},
         ),
         ListTile(
-          leading: Icon(Icons.settings),
-          title: Text('Settings'),
+          leading: Icon(Icons.list),
+          title: Text('Stepper'),
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (_) => Stap()));
+          },
         ),
         Divider(),
         ListTile(

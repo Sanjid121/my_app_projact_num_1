@@ -43,7 +43,7 @@ class _RegisterState extends State<Register> {
     } else {
       ss.setString('email', _nameController.text);
       ss.setString('password', _passController.text);
- Navigator.push(
+      Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginPage()));
     }
   }
@@ -102,8 +102,8 @@ class _RegisterState extends State<Register> {
                                     TextFormField(
                                       controller: _nameController,
                                       decoration: InputDecoration(
-                                          icon: Icon(Icons.man_3_rounded,
-                                              size: 25, color: Colors.red),
+                                          icon: Icon(Icons.email,
+                                              size: 25, color: Colors.white),
                                           labelText: 'Email ',
                                           labelStyle:
                                               TextStyle(color: Colors.white),
@@ -120,7 +120,7 @@ class _RegisterState extends State<Register> {
                                       controller: _passController,
                                       decoration: InputDecoration(
                                           icon: Icon(Icons.lock,
-                                              size: 25, color: Colors.red),
+                                              size: 25, color: Colors.white),
                                           labelText: 'Pasword',
                                           labelStyle:
                                               TextStyle(color: Colors.white),

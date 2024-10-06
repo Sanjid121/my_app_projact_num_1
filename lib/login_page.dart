@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void initState() {
-    Future.delayed(Duration(microseconds: 1), () async {
+    Future.delayed(Duration(milliseconds: 0), () async {
       SharedPreferences ss = await SharedPreferences.getInstance();
       if (ss.getString('login') != null) {
         if (ss.getString('login') == 'true') {
@@ -123,8 +123,8 @@ class _LoginPageState extends State<LoginPage> {
                                     TextFormField(
                                       controller: _usernameController,
                                       decoration: InputDecoration(
-                                          icon: Icon(Icons.man_3_rounded,
-                                              size: 25, color: Colors.red),
+                                          icon: Icon(Icons.email,
+                                              size: 25, color: Colors.white),
                                           labelText: 'Email ',
                                           labelStyle:
                                               TextStyle(color: Colors.white),
@@ -141,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                                       controller: _passwordController,
                                       decoration: InputDecoration(
                                           icon: Icon(Icons.lock,
-                                              size: 25, color: Colors.red),
+                                              size: 25, color: Colors.white),
                                           labelText: 'Pasword',
                                           labelStyle:
                                               TextStyle(color: Colors.white),
